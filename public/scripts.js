@@ -60,7 +60,7 @@ const buildListItem = (array, direction) => {
     const rancidBool = item.cleanliness === 'Rancid' ? 'selected' : '';
     
     $('.items-display').prepend(`
-      <div class="item-card">
+      <div class="item-card" id="${item.id}">
         <div class="item-name collapsed">
           ${item.name}
           <div class="item-details">
@@ -134,6 +134,28 @@ const sortItems = (e) => {
   loadItems(direction);
 }
 
+const changeCleanliness = (e) => {
+  const newCleanliness = e.target.value;
+  const itemId = parseInt($(e.target).parents('.item-card').attr('id'));
+  fetch(`/api/v1/item/${itemId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      cleanliness: newCleanliness,
+    }),
+  })
+    .then(res => res.json())
+    .then(changes => displayMessage(changes))
+    .catch(error => console.log({ error }));
+}
+
+const displayMessage = (msg) => {
+  console.log(msg);
+  // TODO: Update the dom to display messages for the user
+}
+
 // SETUP
 loadItems();
 
@@ -141,4 +163,5 @@ loadItems();
 $('.garage-door').on('click', toggleDoor);
 $('.new-item-form').on('submit', addItem);
 $('.items-display').on('click', '.item-name', toggleDetails);
+$('.items-display').on('change', '.cleanliness-dropdown', changeCleanliness);
 $('.sort-buttons').on('click', '.sort-az, .sort-za', sortItems);
