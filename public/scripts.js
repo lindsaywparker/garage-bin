@@ -40,10 +40,21 @@ const clearInputs = () => {
   $('.item-name-input').focus();
 }
 
-const buildListItem = (array) => {
+const buildListItem = (array, direction) => {
   if (!array.length) $('.items-display').text('Your garage is empty!  I don\'t believe it.');
+
+  let renderArray = array;
   
-  array.forEach((item) => {
+  if (direction) {
+    const renderArray = array.sort((a, b) => {
+      if (direction === 'A-Z') {
+        return b.name.localeCompare(a.name);
+      }
+      return a.name.localeCompare(b.name);
+    });
+  }
+  
+  renderArray.forEach((item) => {
       $('.items-display').prepend(`
         <div class="item-card">
           <div class="item-name collapsed">
@@ -70,11 +81,12 @@ const buildListItem = (array) => {
   })
 }
 
-const loadItems = () => {
+const loadItems = (direction = null) => {
+  $('.items-display').text('');
   fetch('api/v1/item')
     .then(res => res.json())
     .then(items => {
-      buildListItem(items);
+      buildListItem(items, direction);
       fetchCounts(items);
     })
     .catch(error => console.log({ error }))
@@ -113,6 +125,11 @@ const updateCounters = (array) => {
   $('.total-items-counter').text(newTotal);
 }
 
+const sortItems = (e) => {
+  const direction = e.target.innerText;
+  loadItems(direction);
+}
+
 // SETUP
 loadItems();
 
@@ -120,3 +137,4 @@ loadItems();
 $('.garage-door').on('click', toggleDoor);
 $('.new-item-form').on('submit', addItem);
 $('.items-display').on('click', '.item-name', toggleDetails);
+$('.sort-buttons').on('click', '.sort-az, .sort-za', sortItems);
