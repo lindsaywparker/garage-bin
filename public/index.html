@@ -5,42 +5,48 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
     <header>
       <h1 class="logo">Garage<span class="logo-highlight">Bin</span></h1>
     </header>
-    <form class="new-item-form">
-      <input type="text" class="item-name-input" placeholder="Name" required>
-      <input type="text" class="item-reason-input" placeholder="Reason" required>
-      <label for="cleanliness-dropdown">
-        Cleanliness:
-        <select
-          class="cleanliness-dropdown"
-          name="cleanliness-dropdown"
-          required
-        >
-          <option selected disabled>Select a cleanliness...</option>
-          <option value="Sparkling">Sparkling</option>
-          <option value="Dusty">Dusty</option>
-          <option value="Rancid">Rancid</option>
-        </select>
-      </label>
-      <input type="submit" class="button" value="Add to List" />
-      <div class="status-msg"></div>
-    </form>
-    <div class="sort-buttons">Sort: <span class="sort-az">A-Z</span> <span class="sort-za">Z-A</span></div>
-    <div class="items-display"></div>
-    <div class="counters">
-      <p>Total Items: <span class="total-items-counter"><span></p>
-      <p>Sparkling Items: <span class="sparkling-items-counter"><span></p>
-      <p>Dusty Items: <span class="dusty-items-counter"><span></p>
-      <p>Rancid Items: <span class="rancid-items-counter"><span></p>
-    </div>
-    <div class="garage-door">
-      ... garage door ...
-    </div>
+    <main>
+      <div class="main-content">
+        <h2>Add a New Item</h2>
+        <form class="new-item-form">
+          <input type="text" class="item-name-input" placeholder="Name" required>
+          <input type="text" class="item-reason-input" placeholder="Reason" required>
+          <label for="cleanliness-dropdown">
+            Cleanliness:
+            <select
+              class="cleanliness-dropdown"
+              name="cleanliness-dropdown"
+              required
+            >
+              <option selected disabled>Select a cleanliness...</option>
+              <option value="Sparkling">Sparkling</option>
+              <option value="Dusty">Dusty</option>
+              <option value="Rancid">Rancid</option>
+            </select>
+          </label>
+          <input type="submit" class="button" value="Add to List" />
+          <div class="status-msg"></div>
+        </form>
+        <h2>Your Items</h2>
+        <div class="sort-buttons">Sort: <span class="sort-az">A-Z</span> | <span class="sort-za">Z-A</span></div>
+        <div class="items-display"></div>
+        <h2>Summary</h2>
+        <div class="counters">
+          <p>Total Items: <span class="total-items-counter"><span></p>
+          <p>Sparkling Items: <span class="sparkling-items-counter"><span></p>
+          <p>Dusty Items: <span class="dusty-items-counter"><span></p>
+          <p>Rancid Items: <span class="rancid-items-counter"><span></p>
+        </div>
+      </div>
+      <div class="garage-door"></div>
+    </main>
     <script src="scripts.js"></script>
   </body>
 </html>
