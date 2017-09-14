@@ -64,3 +64,5 @@ app.put('/api/v1/item/:id', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`GarbageBin is running on http://localhost:${app.get('port')}.`);
 });
+
+module.exports = app;
