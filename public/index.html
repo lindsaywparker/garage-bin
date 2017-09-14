@@ -9,20 +9,30 @@
   </head>
   <body>
     <header>
-      <h1 class="logo">garage<span class="logo-highlight">bin</span></h1>
+      <h1 class="logo">Garage<span class="logo-highlight">Bin</span></h1>
     </header>
     <form class="new-item-form">
-      <input type="text" name="item-name" value="name">
-      <input type="text" name="item-reason" value="reason">
+      <input type="text" class="item-name" placeholder="Name" required>
+      <input type="text" class="item-reason" placeholder="Reason" required>
       <label for="cleanliness-dropdown">
         Cleanliness:
-        <select class="cleanliness-dropdown" name="cleanliness-dropdown"></select>
+        <select
+          class="cleanliness-dropdown"
+          name="cleanliness-dropdown"
+          placeholder="Select a cleanliness..."
+          required
+        >
+          <option disabled>Select a cleanliness...</option>
+          <option value="Sparkling">Sparkling</option>
+          <option value="Dusty">Dusty</option>
+          <option value="Rancid">Rancid</option>
+        </select>
       </label>
-      <button type="submit" name="button">add to list</button>
+      <input type="submit" class="button" value="Add to List" />
       <div class="status-msg"></div>
     </form>
     <div class="items-display">
-      I"ll be a list someday
+      I'll be a list someday
     </div>
     <div class="garage-door">
       ... garage door ...
