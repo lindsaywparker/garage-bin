@@ -12,7 +12,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(95, 58, 48, 0.8);
+  background-color: rgb(95, 58, 48);
   transition: transform 1s ease;
 }
 
