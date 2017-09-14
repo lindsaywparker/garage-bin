@@ -17,7 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ENDPOINTS
 // Get all items
 app.get('/api/v1/item', (request, response) => {
-  // do the things
+  database('item').select()
+    .then((items) => {
+      response.status(200).json(items);
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    });
 });
 
 // And an item
@@ -34,8 +40,7 @@ app.post('/api/v1/item', (request, response) => {
   
   database('item').insert(item, '*')
     .then(item => {
-      console.log(item[0]);
-      response.status(201).json({ item: item[0] });
+      response.status(201).json(item[0]);
     })
     .catch(error => {
       response.status(500).json({ error });
