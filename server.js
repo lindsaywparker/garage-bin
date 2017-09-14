@@ -49,7 +49,16 @@ app.post('/api/v1/item', (request, response) => {
 
 // Change an item
 app.put('/api/v1/item/:id', (request, response) => {
-  //do the things
+  const { id } = request.params;
+  const updates = request.body;
+  
+  database('item').where('id', id).update(updates)
+    .then((result) => {
+      response.status(200).json({ result });
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    });
 });
 
 app.listen(app.get('port'), () => {
