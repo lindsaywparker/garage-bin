@@ -76,9 +76,6 @@ const loadItems = () => {
 
 const toggleDetails = (e) => {
   $(e.target).toggleClass('collapsed');
-  
-  // $('.garage-door').toggleClass('garage-open');
-
 }
 
 // SETUP
