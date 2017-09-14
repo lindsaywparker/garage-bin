@@ -1,0 +1,29 @@
+{
+  "name": "garage-bin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lindsaywparker/garage-bin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lindsaywparker/garage-bin/issues"
+  },
+  "homepage": "https://github.com/lindsaywparker/garage-bin#readme",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "knex": "^0.13.0",
+    "pg": "^7.3.0"
+  }
+}
