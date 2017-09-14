@@ -108,7 +108,7 @@ select.cleanliness-dropdown {
 .garage-open .garage-door {
   background: #3E4047 url('../assets/down-arrow.svg') no-repeat center bottom;
   background-size: 25px;
-  transform: translateY(-85%);
+  transform: translateY(-88%);
 }
 
 .main-content {
@@ -136,5 +136,6 @@ select.cleanliness-dropdown {
   
   .counters {
     display: flex;
+    justify-content: space-between;
   }
 }
