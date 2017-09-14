@@ -19,3 +19,7 @@ body {
 .garage-open {
   transform: translateY(-95%);
 }
+
+.collapsed .item-details {
+  display: none;
+}
