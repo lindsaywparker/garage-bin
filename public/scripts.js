@@ -26,7 +26,10 @@ const postItem = () => {
     }),
   })
     .then(res => res.json())
-    .then(item => buildListItem([item]))
+    .then(item => {
+      buildListItem([item]);
+      updateCounters([item]);
+    })
     .catch(error => console.log({ error }));
 }
 
@@ -70,12 +73,44 @@ const buildListItem = (array) => {
 const loadItems = () => {
   fetch('api/v1/item')
     .then(res => res.json())
-    .then(items => buildListItem(items))
+    .then(items => {
+      buildListItem(items);
+      fetchCounts(items);
+    })
     .catch(error => console.log({ error }))
 }
 
 const toggleDetails = (e) => {
   $(e.target).toggleClass('collapsed');
+}
+
+const fetchCounts = (array) => {
+  const counters = {
+    total: array.length,
+  };
+  
+  array.forEach((item) => {
+    if (!counters[item.cleanliness.toLowerCase()]) {
+      counters[item.cleanliness.toLowerCase()] = 0;
+    }
+    counters[item.cleanliness.toLowerCase()] += 1;
+  });
+  
+  const cleanlinessLevel = Object.keys(counters);
+
+  cleanlinessLevel.forEach(level => $(`.${level}-items-counter`).text(counters[level]))
+}
+
+const updateCounters = (array) => {
+  const level = array[0].cleanliness.toLowerCase();
+  const currentCount = parseInt($(`.${level}-items-counter`).text());
+  const newCount = currentCount + 1;
+  
+  const currentTotal = parseInt($('.total-items-counter').text());
+  const newTotal = currentTotal + 1;
+  
+  $(`.${level}-items-counter`).text(newCount);
+  $('.total-items-counter').text(newTotal);
 }
 
 // SETUP
