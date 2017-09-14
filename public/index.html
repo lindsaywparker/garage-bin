@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>lwp garage bin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="logo">garage<span class="logo-highlight">bin</span></h1>
+    </header>
+    <form class="new-item-form">
+      <input type="text" name="item-name" value="name">
+      <input type="text" name="item-reason" value="reason">
+      <label for="cleanliness-dropdown">
+        Cleanliness:
+        <select class="cleanliness-dropdown" name="cleanliness-dropdown"></select>
+      </label>
+      <button type="submit" name="button">add to list</button>
+      <div class="status-msg"></div>
+    </form>
+    <div class="items-display">
+      I"ll be a list someday
+    </div>
+    <div class="garage-door">
+      ... garage door ...
+    </div>
+    <script src="scripts.js"></script>
+  </body>
+</html>

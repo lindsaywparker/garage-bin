@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.garage-door {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(95, 58, 48, 0.8);
+  transition: transform 1s ease;
+}
+
+.garage-open {
+  transform: translateY(-95%);
+}
