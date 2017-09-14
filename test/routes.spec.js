@@ -36,52 +36,109 @@ describe('API Routes', () => {
             item.should.have.property('reason');
             item.should.have.property('cleanliness');
           });
-          res.status.should.equal(100);
           done();
         });
     });
+  });
   
-  // describe('POST /api/v1/item', () => {
-  //   it('should create a new item', (done) => {
-  //     chai.request(server)
-  //       .end((err, res) => {
-  //         
-  //         done();
-  //       });
-  //   });
-  //   
-  //   it('should not create a new item with missing parameters', (done) => {
-  //     chai.request(server)
-  //       .end((err, res) => {
-  //         
-  //         done();
-  //       });
-  //   });
-  //   
-  //   it('should not create a new item if the item already exists in the table', (done) => {
-  //     chai.request(server)
-  //       .end((err, res) => {
-  //         
-  //         done();
-  //       });
-  //   });
-  // });
-  // 
-  // describe('PUT /api/v1/item', () => {
-  //   it('should update an item', (done) => {
-  //     chai.request(server)
-  //       .end((err, res) => {
-  //         
-  //         done();
-  //       });
-  //   });
-  //   
-  //   it('should not update an item if the item does not exist', (done) => {
-  //     chai.request(server)
-  //     .end((err, res) => {
-  //         
-  //         done();
-  //       });
-  //   });
+  describe('POST /api/v1/item', () => {
+    it('should create a new item', (done) => {
+      chai.request(server)
+        .post('/api/v1/item')
+        .send({
+          id: 4,
+          name: 'Lawn mower',
+          reason: 'Lawn fighting',
+          cleanliness: 'Sparkling',
+        })
+        .end((err, res) => {
+          res.status.should.equal(201);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('id');
+          res.body.should.have.property('name');
+          res.body.should.have.property('reason');
+          res.body.should.have.property('cleanliness');
+          res.body.should.have.property('created_at');
+          res.body.should.have.property('updated_at');
+          res.body.id.should.equal(4);
+          res.body.name.should.equal('Lawn mower');
+          res.body.reason.should.equal('Lawn fighting');
+          res.body.cleanliness.should.equal('Sparkling');
+          done();
+        });
+    });
+    
+    it('should not create a new item with missing parameters', (done) => {
+      chai.request(server)
+        .post('/api/v1/item')
+        .send({
+          id: 4,
+          reason: 'Lawn fighting',
+          cleanliness: 'Sparkling',
+        })
+        .end((err, res) => {
+          res.status.should.equal(422);
+          res.should.be.json;
+          res.body.should.be.a('object');
+          res.body.should.have.property('error');
+          res.body.error.should.equal('Missing required name parameter');
+          done();
+        });
+    });
+    
+    it('should not create a new item if the item already exists in the table', (done) => {
+      chai.request(server)
+      .post('/api/v1/item')
+      .send({
+        id: 1,
+        name: 'Lawn mower',
+        reason: 'Lawn fighting',
+        cleanliness: 'Sparkling',
+      })
+      .end((err, res) => {
+        res.status.should.equal(500);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('error');
+        res.body.error.code.should.equal('23505');
+        res.body.error.detail.should.equal('Key (id)=(1) already exists.');
+        done();
+        });
+    });
+  });
+  
+  describe('PUT /api/v1/item', () => {
+    it('should update an item', (done) => {
+      chai.request(server)
+      .put('/api/v1/item/1')
+      .send({
+        cleanliness: 'Sparkling',
+      })
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('result');
+        res.body.result.should.equal(1);
+        done();
+        });
+    });
+    
+    it('should not update an item if the item does not exist', (done) => {
+      chai.request(server)
+      .put('/api/v1/item/11')
+      .send({
+        cleanliness: 'Sparkling',
+      })
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('result');
+        res.body.result.should.equal(0);
+        done();
+        });
+    });
   });
 });
