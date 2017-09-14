@@ -12,17 +12,16 @@
       <h1 class="logo">Garage<span class="logo-highlight">Bin</span></h1>
     </header>
     <form class="new-item-form">
-      <input type="text" class="item-name" placeholder="Name" required>
-      <input type="text" class="item-reason" placeholder="Reason" required>
+      <input type="text" class="item-name-input" placeholder="Name" required>
+      <input type="text" class="item-reason-input" placeholder="Reason" required>
       <label for="cleanliness-dropdown">
         Cleanliness:
         <select
           class="cleanliness-dropdown"
           name="cleanliness-dropdown"
-          placeholder="Select a cleanliness..."
           required
         >
-          <option disabled>Select a cleanliness...</option>
+          <option selected disabled>Select a cleanliness...</option>
           <option value="Sparkling">Sparkling</option>
           <option value="Dusty">Dusty</option>
           <option value="Rancid">Rancid</option>
@@ -31,9 +30,7 @@
       <input type="submit" class="button" value="Add to List" />
       <div class="status-msg"></div>
     </form>
-    <div class="items-display">
-      I'll be a list someday
-    </div>
+    <div class="items-display"></div>
     <div class="garage-door">
       ... garage door ...
     </div>
