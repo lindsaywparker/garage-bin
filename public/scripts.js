@@ -55,29 +55,33 @@ const buildListItem = (array, direction) => {
   }
   
   renderArray.forEach((item) => {
-      $('.items-display').prepend(`
-        <div class="item-card">
-          <div class="item-name collapsed">
-            ${item.name}
-            <div class="item-details">
-              <p class="item-reason">${item.reason}</p>
-              <label for="cleanliness-dropdown">
-                Cleanliness:
-                <select
-                  class="cleanliness-dropdown"
-                  name="cleanliness-dropdown"
-                  required
-                >
-                  <option disabled>Change cleanliness...</option>
-                  <option value="Sparkling">Sparkling</option>
-                  <option value="Dusty">Dusty</option>
-                  <option value="Rancid">Rancid</option>
-                </select>
-              </label>
-            </div>
+    const sparklingBool = item.cleanliness === 'Sparkling' ? 'selected' : '';
+    const dustyBool = item.cleanliness === 'Dusty' ? 'selected' : '';
+    const rancidBool = item.cleanliness === 'Rancid' ? 'selected' : '';
+    
+    $('.items-display').prepend(`
+      <div class="item-card">
+        <div class="item-name collapsed">
+          ${item.name}
+          <div class="item-details">
+            <p class="item-reason">${item.reason}</p>
+            <label for="cleanliness-dropdown">
+              Cleanliness:
+              <select
+                class="cleanliness-dropdown"
+                name="cleanliness-dropdown"
+                required
+              >
+                <option disabled>Change cleanliness...</option>
+                <option value="Sparkling" ${sparklingBool}>Sparkling</option>
+                <option value="Dusty" ${dustyBool}>Dusty</option>
+                <option value="Rancid" ${rancidBool}>Rancid</option>
+              </select>
+            </label>
           </div>
         </div>
-      `)
+      </div>
+    `)
   })
 }
 
