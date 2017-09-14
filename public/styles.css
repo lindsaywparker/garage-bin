@@ -4,6 +4,93 @@
 
 body {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  padding-top: 6px;
+  background-color: #0C214E;
+  color: #FFF;
+  text-align: center;
+}
+
+main {
+  padding: 85px 10px 10px;
+  font-size: 14px;
+}
+
+h2 {
+  margin-bottom: 5px;
+  color: #45B84F;
+  font-size: 18px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border: 1px solid #3E4047;
+  border-radius: 5px;
+  margin: 5px auto;
+  width: 100%;
+  height: 25px;
+  padding-left: 5px;
+}
+
+input.button {
+  width: auto;
+  padding: 5px 20px;
+  border: none;
+  background: #35A8ED;
+}
+
+label {
+  margin: 5px auto;
+}
+
+select.cleanliness-dropdown {
+  background: #FFF;
+  height: 25px;
+}
+
+.logo {
+  margin: 0;
+}
+
+.logo-highlight {
+  color: #45B84F;
+}
+
+.sort-buttons {
+  font-style: italic;
+  text-align: right;
+}
+
+.item-name {
+  padding: 5px;
+  border: 1px solid #3E4047;
+  border-radius: 5px;
+  margin: 6px auto;
+  font-weight: 600;
+}
+
+.item-details {
+  font-weight: 300;
+}
+
+.collapsed .item-details {
+  display: none;
+}
+
+.counters {
+  text-align: center;
 }
 
 .garage-door {
@@ -12,14 +99,42 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgb(95, 58, 48);
-  transition: transform 1s ease;
+  background: #3E4047 url('../assets/open-garage.svg') no-repeat center;
+  background-size: 60px;
+  cursor: pointer;
+  transition: all 1s ease;
 }
 
-.garage-open {
-  transform: translateY(-95%);
+.garage-open .garage-door {
+  background: #3E4047 url('../assets/down-arrow.svg') no-repeat center bottom;
+  background-size: 25px;
+  transform: translateY(-85%);
 }
 
-.collapsed .item-details {
+.main-content {
   display: none;
+}
+
+.garage-open .main-content {
+  display: inherit;
+}
+
+@media screen and (min-width: 480px) {
+  main {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .item-details {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .item-details label {
+    margin: 14px 0;
+  }
+  
+  .counters {
+    display: flex;
+  }
 }

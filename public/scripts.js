@@ -1,6 +1,6 @@
 // FUNCTIONS
 const toggleDoor = () => {
-  $('.garage-door').toggleClass('garage-open');
+  $('main').toggleClass('garage-open');
 }
 
 const addItem = (e) => {
