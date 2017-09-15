@@ -1,8 +1,4 @@
 // FUNCTIONS
-const toggleDoor = () => {
-  $('main').toggleClass('garage-open');
-}
-
 const addItem = (e) => {
   e.preventDefault();
   postItem();
@@ -33,11 +29,15 @@ const postItem = () => {
     .catch(error => console.log({ error }));
 }
 
-const clearInputs = () => {
-  $('.item-name-input').val('');
-  $('.item-reason-input').val('');
-  $('.cleanliness-dropdown').val('Select a cleanliness...');
-  $('.item-name-input').focus();
+const loadItems = (direction = null) => {
+  $('.items-display').text('');
+  fetch('api/v1/item')
+    .then(res => res.json())
+    .then(items => {
+      buildListItem(items, direction);
+      fetchCounts(items);
+    })
+    .catch(error => console.log({ error }))
 }
 
 const buildListItem = (array, direction) => {
@@ -54,12 +54,15 @@ const buildListItem = (array, direction) => {
     });
   }
   
+  let fragment = document.createDocumentFragment();
+  
   renderArray.forEach((item) => {
     const sparklingBool = item.cleanliness === 'Sparkling' ? 'selected' : '';
     const dustyBool = item.cleanliness === 'Dusty' ? 'selected' : '';
     const rancidBool = item.cleanliness === 'Rancid' ? 'selected' : '';
     
-    $('.items-display').prepend(`
+    const itemDiv = document.createElement('itemDiv');
+    itemDiv.innerHTML = `
       <div class="item-card" id="${item.id}">
         <div class="item-name collapsed">
           ${item.name}
@@ -81,23 +84,11 @@ const buildListItem = (array, direction) => {
           </div>
         </div>
       </div>
-    `)
-  })
-}
-
-const loadItems = (direction = null) => {
-  $('.items-display').text('');
-  fetch('api/v1/item')
-    .then(res => res.json())
-    .then(items => {
-      buildListItem(items, direction);
-      fetchCounts(items);
-    })
-    .catch(error => console.log({ error }))
-}
-
-const toggleDetails = (e) => {
-  $(e.target).toggleClass('collapsed');
+    `;
+    fragment.prepend(itemDiv);
+  });
+  
+  $('.items-display').prepend(fragment);
 }
 
 const fetchCounts = (array) => {
@@ -129,11 +120,6 @@ const updateCounters = (array) => {
   $('.total-items-counter').text(newTotal);
 }
 
-const sortItems = (e) => {
-  const direction = e.target.innerText;
-  loadItems(direction);
-}
-
 const changeCleanliness = (e) => {
   const newCleanliness = e.target.value;
   const itemId = parseInt($(e.target).parents('.item-card').attr('id'));
@@ -147,13 +133,28 @@ const changeCleanliness = (e) => {
     }),
   })
     .then(res => res.json())
-    .then(changes => displayMessage(changes))
+    .then(changes => console.log(changes))
     .catch(error => console.log({ error }));
 }
 
-const displayMessage = (msg) => {
-  console.log(msg);
-  // TODO: Update the dom to display messages for the user
+const sortItems = (e) => {
+  const direction = e.target.innerText;
+  loadItems(direction);
+}
+
+const clearInputs = () => {
+  $('.item-name-input').val('');
+  $('.item-reason-input').val('');
+  $('.cleanliness-dropdown').val('Select a cleanliness...');
+  $('.item-name-input').focus();
+}
+
+const toggleDoor = () => {
+  $('main').toggleClass('garage-open');
+}
+
+const toggleDetails = (e) => {
+  $(e.target).toggleClass('collapsed');
 }
 
 // SETUP
@@ -161,7 +162,7 @@ loadItems();
 
 // EVENT LISTENERS
 $('.garage-door').on('click', toggleDoor);
-$('.new-item-form').on('submit', addItem);
-$('.items-display').on('click', '.item-name', toggleDetails);
-$('.items-display').on('change', '.cleanliness-dropdown', changeCleanliness);
 $('.sort-buttons').on('click', '.sort-az, .sort-za', sortItems);
+$('.new-item-form').on('submit', addItem);
+$('.items-display').on('click', '.item-name', toggleDetails)
+                   .on('change', '.cleanliness-dropdown', changeCleanliness);
