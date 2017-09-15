@@ -92,9 +92,8 @@ const buildListItem = (array, direction) => {
 }
 
 const fetchCounts = (array) => {
-  const counters = {
-    total: array.length,
-  };
+  const counters = {};
+  counters.total = array.length;
   
   array.forEach((item) => {
     if (!counters[item.cleanliness.toLowerCase()]) {
@@ -110,10 +109,10 @@ const fetchCounts = (array) => {
 
 const updateCounters = (array) => {
   const level = array[0].cleanliness.toLowerCase();
-  const currentCount = parseInt($(`.${level}-items-counter`).text());
+  const currentCount = parseInt($(`.${level}-items-counter`).text()) || 0;
   const newCount = currentCount + 1;
   
-  const currentTotal = parseInt($('.total-items-counter').text());
+  const currentTotal = parseInt($('.total-items-counter').text()) || 0;
   const newTotal = currentTotal + 1;
   
   $(`.${level}-items-counter`).text(newCount);
@@ -135,6 +134,12 @@ const changeCleanliness = (e) => {
     .then(res => res.json())
     .then(changes => console.log(changes))
     .catch(error => console.log({ error }));
+  
+  const changedCleanliness = [{
+    cleanliness: newCleanliness,
+  }];
+  
+  updateCounters(changedCleanliness);
 }
 
 const sortItems = (e) => {
